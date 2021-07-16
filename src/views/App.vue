@@ -1,51 +1,64 @@
 <template>
   <div id="app">
-     <Navbar class="navbar" :show="show" @toggle="getValue"  />
-      <main class="main">
-            <router-view />
-        </main>
-      <Footer class="footer" />
-      <div class="menu" v-show="show">
-          <!-- <router-link to="/wallet">wallet</router-link> -->
-          <router-link to="/mynft">MY NFT</router-link>
-<!--          <router-link to="/questions">QUESTIONS</router-link>-->
-<!--          <router-link to="/qmenu">QUESTIONS-MENU</router-link>-->
-          <router-link to="/marketplace">MARKETPLACE</router-link>
-<!--          <router-link to="/lockup">LOCK UP BFX</router-link>-->
-          <router-link to="/email">EMAIL</router-link>
-      </div>
+    <Navbar class="navbar" :show="show" @toggle="getValue" />
+    <main class="main">
+      <router-view />
+    </main>
+    <Footer class="footer" />
+    <div class="menu" v-show="show">
+      <!-- <router-link to="/wallet">wallet</router-link> -->
+      <router-link to="/mynft">MY NFT</router-link>
+      <!--          <router-link to="/questions">QUESTIONS</router-link>-->
+      <!--          <router-link to="/qmenu">QUESTIONS-MENU</router-link>-->
+      <router-link to="/marketplace">MARKETPLACE</router-link>
+      <!--          <router-link to="/lockup">LOCK UP BFX</router-link>-->
+      <!-- <router-link to="/email">EMAIL</router-link> -->
+      <div class="log-out" @click="logout">LOG OUT</div>
+    </div>
   </div>
 </template>
 
 <script>
-import Navbar from "@/views/Layout/Navbar.vue";
-import Footer from "@/views/Layout/Footer.vue";
+  import Navbar from "@/views/Layout/Navbar.vue";
+  import Footer from "@/views/Layout/Footer.vue";
 
-export default {
-  name: 'App',
-    data(){
-             return{
-                 show:false
-             }
+  export default {
+    name: "App",
+    data() {
+      return {
+        show: false,
+      };
     },
     components: { Navbar, Footer },
-    watch:{
-        '$route.path':function(){
-            this.show=false
-        }
+    watch: {
+      "$route.path": function() {
+        this.show = false;
+      },
     },
-    methods:{
-        getValue(v){
-            this.show=v
-        }
-    }
-}
+    mounted() {
+        this.$store.dispatch("user/InitWallet").catch((err) => {
+            console.log(err);
+            if (err.code === 100) {
+                this.$store.dispatch("user/Quit");
+            }
+        });
+    },
+    methods: {
+      getValue(v) {
+        this.show = v;
+      },
+      logout() {
+        this.$store.dispatch("user/Quit");
+        this.show = false;
+      },
+    },
+  };
 </script>
 
 <style lang="scss">
-@import "@/assets/styles/index.scss";
+  @import "@/assets/styles/index.scss";
 
-#app {
+  #app {
     // text-align: center;
     color: #020202;
     min-height: 100%;
@@ -53,41 +66,42 @@ export default {
     display: flex;
     flex-direction: column;
     position: relative;
-}
-.menu{
+  }
+  .menu {
     position: fixed;
-    left:0;
-    top:80px;
-    width:100%;
-    height:calc(100vh - 80px);
+    left: 0;
+    top: 80px;
+    width: 100%;
+    height: calc(100vh - 80px);
     z-index: 100;
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    a{
-        display: block;
-        width:100%;
-        text-align: center;
-        margin-bottom: 15px;
-        font-family:"Montserrat-Medium" ;
-        text-transform: uppercase;
+    a,
+    .log-out {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 15px;
+      font-family: "Montserrat-Medium";
+      text-transform: uppercase;
     }
-}
-.navbar,
-.footer {
+  }
+  .navbar,
+  .footer {
     flex: 0 0 auto;
-}
+  }
 
-.main {
+  .main {
     flex: 1 0 auto;
-}
-.el-input__inner{
-    height:30px !important;
+  }
+  .el-input__inner {
+    height: 30px !important;
     text-indent: 10px;
-}
-    .el-select-dropdown__list{
-        background-color: white !important;
-    }
+  }
+  .el-select-dropdown__list {
+    background-color: white !important;
+  }
 </style>

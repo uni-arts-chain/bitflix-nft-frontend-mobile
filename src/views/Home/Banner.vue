@@ -61,9 +61,11 @@ export default {
 }
 .start-button {
   position: absolute;
-    left:15%;
+    left:50%;
+    transform: translateX(-50%);
     bottom:5%;
-    width:70%;
+    min-width: 345px;
+    max-width: 92%;
     background: linear-gradient(to right, #ba45c8, #2b6bd2);
     height: 30px;
     cursor: pointer;

@@ -9,7 +9,7 @@
                     v-model="searchVal"
                 />
                 <div class="v-br"></div>
-                <div class="search-icon-con" >
+                <div class="search-icon-con" @click="goSearch">
                     <img
                         class="search-icon"
                         width="16px"
@@ -24,14 +24,21 @@
                 <BaseTitle>SEARCH BY MOVIE AND GENRE</BaseTitle>
             </div>
             <div class="allItems">
-                <div class="item" v-for="(item,index) in mList" :key="index" @click="goDetail">
+                <div class="item" v-for="(item,index) in movieList" :key="index" @click="goDetail(item, true)">
                     <div class="pic">
-                        <img :src="item.img" alt="">
+                        <AdaptiveImage
+                            :isPreview="true"
+                            :cover="item.img.url"
+                            :isOrigin="false"
+                            width="341px"
+                            height="175px"
+                        />
                     </div>
                     <div class="text">
-                         <p class="p1">{{item.title}}</p>
-                        <p class="p2">{{item.t2}}</p>
-                        <p class="p3">{{item.price}}</p>
+                         <p class="p1">{{ item.title.toUpperCase() }}</p>
+                        <p class="p2">Contains {{ item.art_count }} NFTs</p>
+                        <p class="p3">Price: {{ item.lowest_price | priceFixed }} ~
+                    {{ item.highest_price | priceFixed }} USDT</p>
                     </div>
                 </div>
             </div>
@@ -42,10 +49,16 @@
                 <BaseTitle>SEARCH BY ACTOR AND DIRECTOR</BaseTitle>
             </div>
             <div class="allItems">
-                   <div  class="item" v-for="(item,index) in aList" :key="index" @click="goDetail">
-                       <img :src="item.img" alt="">
+                   <div  class="item" v-for="(item,index) in starList" :key="index" @click="goDetail(item, true)">
+                       <AdaptiveImage
+                            :isPreview="true"
+                            :cover="item.img.url"
+                            :isOrigin="false"
+                            width="230px"
+                            height="333px"
+                        />
                        <div class="text">
-                           <BaseTitle ft="12" height="3">{{item.name}}</BaseTitle>
+                           <BaseTitle ft="12" height="3">{{ item.title.toUpperCase() }}</BaseTitle>
                        </div>
                    </div>
             </div>
@@ -58,52 +71,16 @@
                     <BaseTitle>SEARCH BY NFT TYPE</BaseTitle>
                 </div>
                 <div class="card-cate-group">
-                    <div class="card-cate-item" >
+                    <div class="card-cate-item" v-for="(v, i) in nftList" :key="i" @click="goDetail(v)">
                         <ActionMovie
-                                title="STAR NFT"
-                                :coverUrl="`${require('@/assets/images/action-cover@2x.png')}`"
-                                :coinUrl="`${require('@/assets/images/cate-coin1.png')}`"
+                                :title="v.art_type.toUpperCase() + ' NFT'"
+                                :coverUrl="v.img_main_file1.url"
+                                :coinUrl="getNFTCoinLogo(v)"
                         />
                         <div class="text">
-                            <p class="p1">KHEM BIRCH</p>
-                            <p class="des">IntroductionIntroductionIntr Introduction......</p>
-                            <p class="p2">1200 USDT</p>
-                        </div>
-                    </div>
-                    <div class="card-cate-item">
-                        <ActionMovie
-                                title="STAR NFT"
-                                :coverUrl="`${require('@/assets/images/action-cover@2x.png')}`"
-                                :coinUrl="`${require('@/assets/images/cate-coin1.png')}`"
-                        />
-                        <div class="text">
-                            <p class="p1">KHEM BIRCH</p>
-                            <p class="des">IntroductionIntroductionIntr Introduction......</p>
-                            <p class="p2">1200 USDT</p>
-                        </div>
-                    </div>
-                    <div class="card-cate-item">
-                        <ActionMovie
-                                title="STAR NFT"
-                                :coverUrl="`${require('@/assets/images/action-cover@2x.png')}`"
-                                :coinUrl="`${require('@/assets/images/cate-coin1.png')}`"
-                        />
-                        <div class="text">
-                            <p class="p1">KHEM BIRCH</p>
-                            <p class="des">IntroductionIntroductionIntr Introduction......</p>
-                            <p class="p2">1200 USDT</p>
-                        </div>
-                    </div>
-                    <div class="card-cate-item">
-                        <ActionMovie
-                                title="STAR NFT"
-                                :coverUrl="`${require('@/assets/images/action-cover@2x.png')}`"
-                                :coinUrl="`${require('@/assets/images/cate-coin1.png')}`"
-                        />
-                        <div class="text">
-                            <p class="p1">KHEM BIRCH</p>
-                            <p class="des">IntroductionIntroductionIntr Introduction......</p>
-                            <p class="p2">1200 USDT</p>
+                            <p class="p1">{{ v.name }}</p>
+                            <p class="des">{{ v.series }}</p>
+                            <p class="p2">{{ v.price | priceFixed }} USDT</p>
                         </div>
                     </div>
                 </div>
@@ -113,52 +90,16 @@
                     <BaseTitle>LATEST LASTINGS</BaseTitle>
                 </div>
                 <div class="card-cate-group">
-                    <div class="card-cate-item" >
+                    <div class="card-cate-item" v-for="(v, i) in latestList" :key="i" @click="goDetail(v)">
                         <ActionMovie
-                                title="STAR NFT"
-                                :coverUrl="`${require('@/assets/images/action-cover@2x.png')}`"
-                                :coinUrl="`${require('@/assets/images/cate-coin1.png')}`"
+                                :title="v.art_type.toUpperCase() + ' NFT'"
+                                :coverUrl="v.img_main_file1.url"
+                                :coinUrl="getNFTCoinLogo(v)"
                         />
                         <div class="text">
-                            <p class="p1">KHEM BIRCH</p>
-                            <p class="des">IntroductionIntroductionIntr Introduction......</p>
-                            <p class="p2">1200 USDT</p>
-                        </div>
-                    </div>
-                    <div class="card-cate-item">
-                        <ActionMovie
-                                title="STAR NFT"
-                                :coverUrl="`${require('@/assets/images/action-cover@2x.png')}`"
-                                :coinUrl="`${require('@/assets/images/cate-coin1.png')}`"
-                        />
-                        <div class="text">
-                            <p class="p1">KHEM BIRCH</p>
-                            <p class="des">IntroductionIntroductionIntr Introduction......</p>
-                            <p class="p2">1200 USDT</p>
-                        </div>
-                    </div>
-                    <div class="card-cate-item">
-                        <ActionMovie
-                                title="STAR NFT"
-                                :coverUrl="`${require('@/assets/images/action-cover@2x.png')}`"
-                                :coinUrl="`${require('@/assets/images/cate-coin1.png')}`"
-                        />
-                        <div class="text">
-                            <p class="p1">KHEM BIRCH</p>
-                            <p class="des">IntroductionIntroductionIntr Introduction......</p>
-                            <p class="p2">1200 USDT</p>
-                        </div>
-                    </div>
-                    <div class="card-cate-item">
-                        <ActionMovie
-                                title="STAR NFT"
-                                :coverUrl="`${require('@/assets/images/action-cover@2x.png')}`"
-                                :coinUrl="`${require('@/assets/images/cate-coin1.png')}`"
-                        />
-                        <div class="text">
-                            <p class="p1">KHEM BIRCH</p>
-                            <p class="des">IntroductionIntroductionIntr Introduction......</p>
-                            <p class="p2">1200 USDT</p>
+                            <p class="p1">{{ v.name }}</p>
+                            <p class="des">{{ v.series }}</p>
+                            <p class="p2">{{ v.price | priceFixed }} USDT</p>
                         </div>
                     </div>
                 </div>
@@ -173,12 +114,19 @@
 <script>
 import BaseTitle from "@/components/BaseTitle";
 import ActionMovie from "@/components/ActionMovie";
+import AdaptiveImage from "@/components/AdaptiveImage";
+import STAR_LOGO from "@/assets/images/cate-coin1.png";
+import MOVIE_LOGO from "@/assets/images/cate-coin2.png";
+import ACTIVIST_LOGO from "@/assets/images/cate-coin3.png";
+import MUSIC_LOGO from "@/assets/images/cate-coin4.png";
+import TROHPY_LOGO from "@/assets/images/cate-coin5.png";
 
 export default {
     name: "Marketplace",
     components: {
         BaseTitle,
-        ActionMovie
+        ActionMovie,
+        AdaptiveImage
     },
     data() {
         return {
@@ -187,53 +135,122 @@ export default {
             isActorLoading: false,
             isTypeLoading: false,
             isLastLoading: false,
+
+            movieList: [],
+            starList: [],
             nftList: [],
             latestList: [],
-            aList:[
-                {
-                    img:require('../../assets/images/people.png'),
-                    name:'SNFT_BAS RUTTEN 1'
-                },
-                {
-                    img:require('../../assets/images/people.png'),
-                    name:'SNFT_BAS RUTTEN 1'
-                },
-                {
-                    img:require('../../assets/images/people.png'),
-                    name:'SNFT_BAS RUTTEN 1'
-                },
-                {
-                    img:require('../../assets/images/people.png'),
-                    name:'SNFT_BAS RUTTEN 1'
-                }
-            ],
-            mList:[
-                {
-                    img:require('@/assets/images/m.png'),
-                    title:'NFT AMBASSADOR_MICHAEL BISPING',
-                    t2:'Contains 5 Moments',
-                    price:' Price: 1000.0 USDT '
-                },
-                {
-                    img:require('@/assets/images/m.png'),
-                    title:'NFT AMBASSADOR_MICHAEL BISPING',
-                    t2:'Contains 5 Moments',
-                    price:' Price: 1000.0 USDT '
-                },
-                {
-                    img:require('@/assets/images/m.png'),
-                    title:'NFT AMBASSADOR_MICHAEL BISPING',
-                    t2:'Contains 5 Moments',
-                    price:' Price: 1000.0 USDT '
-                }
-            ]
         };
     },
-    methods:{
-        goDetail(){
-            this.$router.push("/marketplaceDetail/1");
-        }
-    }
+     mounted() {
+        this.requestMovieData("movie");
+        this.requestNFTData();
+        this.requestStarData();
+        this.requestLatestData();
+    },
+    methods: {
+        getNFTCoinLogo(item) {
+            let coin = "";
+            switch (item.art_type) {
+                case "movie":
+                    coin = MOVIE_LOGO;
+                    break;
+                case "star":
+                    coin = STAR_LOGO;
+                    break;
+                case "activist":
+                    coin = ACTIVIST_LOGO;
+                    break;
+                case "music":
+                    coin = MUSIC_LOGO;
+                    break;
+                case "trohpy":
+                    coin = TROHPY_LOGO;
+                    break;
+            }
+            return coin;
+        },
+        requestMovieData() {
+            this.isMovieLoading = true;
+            this.$http
+                .globalGetMovieSet({})
+                .then((res) => {
+                    this.isMovieLoading = false;
+                    this.movieList = res;
+                })
+                .catch((err) => {
+                    this.isMovieLoading = false;
+                    console.log(err);
+                    this.$notify.error(err.head && err.head.msg);
+                });
+        },
+        requestNFTData() {
+            let params = {
+                sort_type: "create_lth",
+            };
+            this.isTypeLoading = true;
+            this.$http
+                .globalGetMarketList(params)
+                .then((res) => {
+                    this.isTypeLoading = false;
+                    this.nftList = res.list.filter((v, i) => i < 8).reverse();
+                })
+                .catch((err) => {
+                    this.isTypeLoading = false;
+                    console.log(err);
+                    this.$notify.error(err.head && err.head.msg);
+                });
+        },
+        requestLatestData() {
+            this.isLastLoading = true;
+            this.$http
+                .globalGetLatestNFT({
+                    per_page: 4,
+                    page: 1,
+                })
+                .then((res) => {
+                    this.isLastLoading = false;
+                    this.latestList = res;
+                })
+                .catch((err) => {
+                    this.isLastLoading = false;
+                    console.log(err);
+                    this.$notify.error(err.head && err.head.msg);
+                });
+        },
+        requestStarData() {
+            this.isActorLoading = true;
+            this.$http
+                .globalGetStarSet({})
+                .then((res) => {
+                    this.isActorLoading = false;
+                    this.starList = res;
+                })
+                .catch((err) => {
+                    this.isActorLoading = false;
+                    console.log(err);
+                    this.$notify.error(err.head && err.head.msg);
+                });
+        },
+        goSearch() {
+            let path = "/marketplaceSearch";
+            let queryStr = "";
+            if (this.searchVal) {
+                queryStr += "?keyword=" + encodeURIComponent(this.searchVal);
+            }
+            this.$router.push(path + queryStr);
+        },
+        goDetail(item, isTag = false) {
+            if (isTag) {
+                this.$router.push("/marketplaceSearch?tags=" + item.id);
+            } else {
+                this.$router.push("/marketplaceDetail/" + item.id);
+            }
+        },
+        goSearchList() {
+            this.$router.push("/marketplaceSearch");
+        },
+    },
 };
 </script>
 
@@ -434,7 +451,7 @@ export default {
     width: 48%;
     padding: 10px 0;
     display: flex;
-    height: 350px;
+    min-height: 310px;
     margin-bottom: 20px;
     flex-direction: column;
     align-items: center;
@@ -449,6 +466,11 @@ export default {
         }
         .p1{
             font-family:"Montserrat-Bold";
+            height: 35px;
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
         .des{
             margin: 20px 0;

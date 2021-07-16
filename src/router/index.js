@@ -7,6 +7,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ "@/views/Home/Index.vue"),
     },
     {
+        path: "/login",
+        name: "Login",
+        component: () => import(/* webpackChunkName: "session" */ "@/views/Session/Login.vue"),
+    },
+    {
         path: "/nftdetail",
         name: "nftdetail",
         component: () => import(/* webpackChunkName: "nftdetail" */ "@/views/myNFT/Detail"),

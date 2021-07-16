@@ -87,7 +87,6 @@ export default {
     data() {
         return {
             activeTab: "home",
-            connectedAccount:false,
             isShow: false,
         };
     },
@@ -97,23 +96,12 @@ export default {
             this.isShow = value;
         }
     },
-    // computed: {
-    //     theme() {
-    //         return this.$store.state.global.theme;
-    //     },
-    //     connectedAccount() {
-    //         let address = this.$store.state.user.info.address;
-    //         return address ? address.substr(0, 6) + "..." + address.substr(-4, 4) : "";
-    //     },
-    // },
-    // watch: {
-    //     "$route.name"(nav) {
-    //         const navNames = ["Home", "Packs", "marketplace", "questions", "lockup", "Packs"];
-    //         if (navNames.includes(nav)) {
-    //             this.activeTab = nav;
-    //         }
-    //     },
-    // },
+    computed: {
+        connectedAccount() {
+            let address = this.$store.state.user.info.address;
+            return address ? address.substr(0, 6) + "..." + address.substr(-4, 4) : "";
+        },
+    },
     mounted() {
         this.isShow = this.show;
     },

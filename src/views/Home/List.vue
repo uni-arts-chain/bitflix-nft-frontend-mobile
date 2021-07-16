@@ -4,11 +4,11 @@
         class="list"
     >
         <div class="container">
-            <div class="item" v-for="(item, index) in listData" :key="index" >
+            <div class="item" @click="goNFT(item.id)" v-for="(item, index) in listData" :key="index" >
                 <img class="top" src="@/assets/images/border-arrow-top.png" />
                 <img class="bottom" src="@/assets/images/border-arrow-bottom.png" />
                 <div class="cover">
-                   <img class="coverImg" :src="item.img" alt="">
+                    <AdaptiveView :nft="item" class="coverImg" :isResponsive="true" :isPreview="true" />
                 </div>
                 <div class="title">{{item.title }}</div>
                 <div class="common-name webkit-ellipsis-2">
@@ -21,61 +21,52 @@
             <div class="item" >
                 <img class="top" src="@/assets/images/border-arrow-top.png" />
                 <img class="bottom" src="@/assets/images/border-arrow-bottom.png" />
-                <div class="more">MORE ></div>
+                <div class="more" @click="goMarket">MORE ></div>
             </div>
         </div>
     </div>
 </template>
 <script>
+import AdaptiveView from "@/components/AdaptiveView";
 export default {
     name: "list",
+    components: {
+        AdaptiveView,
+    },
     data() {
         return {
-            listData: [
-                {
-               img:require('@/assets/images/nomankind.png'),
-               title:'KHEM BIRCH',
-               des:'IntroductionIntroductionIntr Introduction......',
-               st:'1200 USDT'
-            },
-             {
-               img:require('@/assets/images/nomankind.png'),
-               title:'KHEM BIRCH',
-               des:'IntroductionIntroductionIntr Introduction......',
-               st:'1200 USDT'
-            },
-             {
-               img:require('@/assets/images/nomankind.png'),
-               title:'KHEM BIRCH',
-               des:'IntroductionIntroductionIntr Introduction......',
-               st:'1200 USDT'
-            },
-             {
-               img:require('@/assets/images/nomankind.png'),
-               title:'KHEM BIRCH',
-               des:'IntroductionIntroductionIntr Introduction......',
-               st:'1200 USDT'
-            },
-             {
-               img:require('@/assets/images/nomankind.png'),
-               title:'KHEM BIRCH',
-               des:'IntroductionIntroductionIntr Introduction......',
-               st:'1200 USDT'
-            },
-             {
-               img:require('@/assets/images/nomankind.png'),
-               title:'KHEM BIRCH',
-               des:'IntroductionIntroductionIntr Introduction......',
-               st:'1200 USDT'
-            },
-             {
-               img:require('@/assets/images/nomankind.png'),
-               title:'KHEM BIRCH',
-               des:'IntroductionIntroductionIntr Introduction......',
-               st:'1200 USDT'
-            }
-            ]
+            list: []
         };
+    },
+    computed: {
+        listData() {
+            return this.list.filter((v, i) => i < 7);
+        },
+    },
+    mounted() {
+        this.requestData();
+    },
+    methods: {
+        requestData() {
+            this.isLoading = true;
+            this.$http
+                .globalGetPopArts({})
+                .then((res) => {
+                    this.list = res;
+                    this.isLoading = false;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.isLoading = false;
+                    this.$notify.error(err.head && err.head.msg);
+                });
+        },
+        goNFT(id) {
+            this.$router.push("/marketplaceDetail/" + id);
+        },
+        goMarket() {
+            this.$router.push("/marketplaceSearch");
+        },
     }
 };
 </script>
@@ -125,9 +116,9 @@ export default {
         background-size: 100% 100%;
         margin-top: 12px;
         margin-left: 16px;
-        padding-top: 12px;
-        padding-right: 30px;
-        padding-bottom: 12px;
+        padding-top: 8px;
+        padding-right: 20px;
+        padding-bottom: 8px;
         display: flex;
         align-items:center;
     }
