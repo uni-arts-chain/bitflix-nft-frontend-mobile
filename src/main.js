@@ -1,8 +1,18 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from "vue";
+import App from "@/views/App.vue";
+import router from "@/plugins/router";
+import store from "@/store/index";
+import inject from "@/inject/index";
+import "@/filters";
 
-Vue.config.productionTip = false
+import "@/assets/styles/reset.scss";
+
+Vue.config.productionTip = false;
+
+Vue.use(inject);
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+    router,
+    store,
+    render: (h) => h(App),
+}).$mount("#app");
