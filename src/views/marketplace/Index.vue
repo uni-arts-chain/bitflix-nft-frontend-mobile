@@ -30,6 +30,7 @@
                             :isPreview="true"
                             :cover="item.img.url"
                             :isOrigin="false"
+                            style="max-width: 100%"
                             width="341px"
                             height="175px"
                         />
@@ -49,13 +50,13 @@
                 <BaseTitle>SEARCH BY ACTOR AND DIRECTOR</BaseTitle>
             </div>
             <div class="allItems">
-                   <div  class="item" v-for="(item,index) in starList" :key="index" @click="goDetail(item, true)">
+                   <div  class="item" style="width: 162px;height:216px" v-for="(item,index) in starList" :key="index" @click="goDetail(item, true)">
                        <AdaptiveImage
                             :isPreview="true"
                             :cover="item.img.url"
                             :isOrigin="false"
-                            width="230px"
-                            height="333px"
+                            width="100%"
+                            height="100%"
                         />
                        <div class="text">
                            <BaseTitle ft="12" height="3">{{ item.title.toUpperCase() }}</BaseTitle>
