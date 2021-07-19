@@ -2,7 +2,6 @@
 <template>
     <div class="previous">
         <div
-            class="container"
             v-loading="isLoading"
             element-loading-spinner="el-icon-loading"
             element-loading-background="rgba(0, 0, 0, 0)"
@@ -12,6 +11,8 @@
                     <!-- <div class="label">DROPS 2:00 AM CST MAY 15</div>
                     <div class="recommend">RECOMMENDED PACK</div>-->
                     <ActionMovie
+                        width="100%"
+                        height="100%"
                         :title="v.art_type.toUpperCase() + ' NFT'"
                         :coverUrl="v.img_main_file1.url"
                         :coinUrl="getNFTCoinLogo(v)"
@@ -118,14 +119,20 @@ export default {
 .list {
     overflow: hidden;
 }
+.item:nth-child(2n) {
+    margin-right: 0;
+}
 .item {
-    cursor: pointer;
-    width: 260px;
-    margin-right: 50px;
     float: left;
-    margin-top: 64px;
-    margin-bottom: 60px;
-    text-align: left;
+    margin-right: 5%;
+    width: 45%;
+    padding: 10px 0;
+    display: flex;
+    min-height: 290px;
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
 }
 .item:nth-child(4n) {
     margin-right: 0;
@@ -157,19 +164,19 @@ export default {
 .action-movie {
     margin-left: 10px;
     width: 100%;
-    width: 219px;
-    height: 221px;
+    height: 180px;
     font-size: 26px;
     margin-bottom: 60px;
 }
 .info {
-    margin-left: 36px;
+    margin-left: 16px;
+    width: 100%;
     .name {
         font-size: 18px;
         font-family: "Montserrat-Bold";
         font-weight: Bold;
         text-align: left;
-        width: 100%;
+        width: 90%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

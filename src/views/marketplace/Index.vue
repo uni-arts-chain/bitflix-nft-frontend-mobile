@@ -182,7 +182,7 @@ export default {
                 .catch((err) => {
                     this.isMovieLoading = false;
                     console.log(err);
-                    this.$notify.error(err.head && err.head.msg);
+                    this.$toast.fail(err.head && err.head.msg);
                 });
         },
         requestNFTData() {
@@ -199,7 +199,7 @@ export default {
                 .catch((err) => {
                     this.isTypeLoading = false;
                     console.log(err);
-                    this.$notify.error(err.head && err.head.msg);
+                    this.$toast.fail(err.head && err.head.msg);
                 });
         },
         requestLatestData() {
@@ -216,7 +216,7 @@ export default {
                 .catch((err) => {
                     this.isLastLoading = false;
                     console.log(err);
-                    this.$notify.error(err.head && err.head.msg);
+                    this.$toast.fail(err.head && err.head.msg);
                 });
         },
         requestStarData() {
@@ -230,7 +230,7 @@ export default {
                 .catch((err) => {
                     this.isActorLoading = false;
                     console.log(err);
-                    this.$notify.error(err.head && err.head.msg);
+                    this.$toast.fail(err.head && err.head.msg);
                 });
         },
         goSearch() {

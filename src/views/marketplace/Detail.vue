@@ -190,7 +190,7 @@
           .catch((err) => {
             this.isMomentLoading = false;
             console.log(err);
-            this.$notify.error(err.head && err.head.msg);
+            this.$toast.fail(err.head && err.head.msg);
           });
       },
       getNFTCoinLogo(item) {
@@ -237,7 +237,7 @@
           .catch((err) => {
             this.isLoading = false;
             console.log(err);
-            this.$notify.error(err.head && err.head.msg);
+            this.$toast.fail(err.head && err.head.msg);
           });
         if (this.isLogin) {
           this.requestSimilarData();
@@ -267,7 +267,7 @@
           if (txHash) {
             console.log(txHash);
             this.isPurchasing = false;
-            this.$notify.success(txHash);
+            this.$toast.success(txHash);
             this.init();
           }
           this.isApproving = false;
@@ -278,7 +278,7 @@
           .catch((err) => {
             console.log(err);
             this.isPurchasing = false;
-            this.$notify.error((err.head && err.head.msg) || (err.message && err.message));
+            this.$toast.fail((err.head && err.head.msg) || (err.message && err.message));
           });
       },
       async approve() {
@@ -301,7 +301,7 @@
           .catch((err) => {
             console.log(err);
             this.isApproving = false;
-            this.$notify.error((err.head && err.head.msg) || err.message || (err.data && err.data.message));
+            this.$toast.fail((err.head && err.head.msg) || err.message || (err.data && err.data.message));
           });
       },
     },
@@ -491,6 +491,11 @@
       text-align: center;
       color: #ffffff;
       letter-spacing: 1px;
+    }
+    .buy-btn[disabled] {
+      background: #666;
+      opacity: 0.7;
+      cursor: not-allowed;
     }
 
     .hash-con {

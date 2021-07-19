@@ -58,7 +58,7 @@ export default {
                 .catch((err) => {
                     console.log(err);
                     this.isLoading = false;
-                    this.$notify.error(err.head && err.head.msg);
+                    this.$toast.fail(err.head && err.head.msg);
                 });
         },
         goNFT(id) {
