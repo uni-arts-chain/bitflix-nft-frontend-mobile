@@ -22,4 +22,4 @@ export const ROUTER_DEFAULT_CONFIG = {
 
 export const CHAIN_DEFAULT_CONFIG = window.NODE_CONFIG || {};
 
-// export const RPC_DEFAULT_CONFIG = rpcConfig;
+export const PcLocation = "https://dapp.btflx.com";
