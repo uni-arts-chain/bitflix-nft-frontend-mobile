@@ -2,7 +2,7 @@
 <template>
     <div class="banner">
         <div class="wrapper-video">
-            <img src="@/assets/images/hbanner.png" alt="">
+            <img src="@/assets/images/mobile-banner.png" alt="">
         </div>
         <button class="start-button" @click="goMarketplace">COLLECT MOVIE NFTS - CONNECT WITH STARS</button>
     </div>

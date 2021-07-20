@@ -2,7 +2,7 @@
 <template>
     <div class="cate">
         <div class="desc-img">
-<img src="../../assets/images/select1.png" alt="">
+<img src="@/assets/images/select-1.png" alt="">
         </div>
         <div class="card-cate-group container">
             <div class="card-cate-item" @click="goMarketplaceDetail('star')">
