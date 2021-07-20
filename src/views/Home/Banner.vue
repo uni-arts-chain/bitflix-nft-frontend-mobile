@@ -2,11 +2,8 @@
 <template>
     <div class="banner">
         <div class="wrapper-video">
-            <img src="../../assets/images/hbanner.png" alt="">
+            <img src="@/assets/images/hbanner.png" alt="">
         </div>
-<!--        <p class="desc">-->
-<!--            A Movie NFT is a collectible behind-the-scenes moment from a movie. If Terminator was the BITFLIX IMO, then the BTS video clip of Arnold Schwarzenegger’s iconic phrase “I’ll be back” would be the Movie NFT.-->
-<!--        </p>-->
         <button class="start-button" @click="goMarketplace">COLLECT MOVIE NFTS - CONNECT WITH STARS</button>
     </div>
 </template>
