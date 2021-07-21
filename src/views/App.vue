@@ -7,7 +7,7 @@
     <Footer class="footer" />
     <div class="menu" v-show="show">
       <!-- <router-link to="/wallet">wallet</router-link> -->
-      <router-link to="/mynft">MY NFT</router-link>
+      <router-link to="/mynft">MY COLLECTION</router-link>
       <!--          <router-link to="/questions">QUESTIONS</router-link>-->
       <!--          <router-link to="/qmenu">QUESTIONS-MENU</router-link>-->
       <router-link to="/marketplace">MARKETPLACE</router-link>

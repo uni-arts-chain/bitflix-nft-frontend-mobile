@@ -6,11 +6,11 @@
                 <div class="search-content">
                     <input
                         class="search-input"
-                        placeholder="Search by Actor, Director, Movie title and genre, and NFT type"
+                        placeholder="Search Actor, Director, Movie, Genre"
                         v-model="searchVal"
                     />
                 </div>
-                <div class="start-button" @click="requestSeach">SERACH</div>
+                <div class="start-button" @click="requestSeach">SEARCH</div>
             </div>
             <div class="filter-container">
                 <div class="input-container">
