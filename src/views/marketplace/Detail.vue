@@ -24,7 +24,7 @@
                     <div class="sub-title"># /35000+</div>-->
           <div class="info-con">
             <div>
-              <div class="label">Transzction</div>
+              <div class="label">Transaction</div>
               <div class="label">number</div>
             </div>
             <div>
