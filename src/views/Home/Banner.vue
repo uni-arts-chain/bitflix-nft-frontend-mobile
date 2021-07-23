@@ -2,7 +2,15 @@
 <template>
     <div class="banner">
         <div class="wrapper-video">
-            <img src="@/assets/images/mobile-banner.png" alt="">
+            <video id="marketplaceVideo"
+                   ref="video"
+                   width="100%"
+                   height="auto"
+                   :src="videoUrl"
+                   poster=""
+                   autoplay
+                   muted
+                   loop></video>
         </div>
         <button class="start-button" @click="goMarketplace">COLLECT MOVIE NFTS - CONNECT WITH STARS</button>
     </div>
@@ -79,13 +87,12 @@ export default {
     background-color: black;
     width: 100%;
     video {
-        height: 100%;
-        width: auto;
-    }
-    img{
         width: 100%;
         vertical-align: middle;
         object-fit: cover;
+    }
+    img{
+        width: 100%;
     }
 }
 </style>
