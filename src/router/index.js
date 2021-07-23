@@ -42,6 +42,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "marketplace" */ "@/views/marketplace/Index"),
     },
     {
+        path: "/resell",
+        name: "resell",
+        component: () => import(/* webpackChunkName: "resell" */ "@/views/resell/Index"),
+    },
+    {
         path: "/marketplaceSearch",
         name: "marketplaceSearch",
         component: () =>

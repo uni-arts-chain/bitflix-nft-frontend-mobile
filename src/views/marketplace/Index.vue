@@ -340,7 +340,7 @@ export default {
         margin: 0 auto;
         .item{
             width:100%;
-            background: url("/@/assets/images/b.png") no-repeat;
+            background: url("~@/assets/images/b.png") no-repeat;
             background-size: cover;
             padding: 10px 2.5%;
             margin-top: 20px;

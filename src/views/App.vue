@@ -11,6 +11,7 @@
       <!--          <router-link to="/questions">QUESTIONS</router-link>-->
       <!--          <router-link to="/qmenu">QUESTIONS-MENU</router-link>-->
       <router-link to="/marketplace">MARKETPLACE</router-link>
+      <router-link to="/resell">RESELL</router-link>
       <!--          <router-link to="/lockup">LOCK UP BFX</router-link>-->
       <!-- <router-link to="/email">EMAIL</router-link> -->
       <div class="log-out" @click="logout">LOG OUT</div>

@@ -102,6 +102,7 @@
   import ACTIVIST_LOGO from "@/assets/images/cate-coin3.png";
   import MUSIC_LOGO from "@/assets/images/cate-coin4.png";
   import TROHPY_LOGO from "@/assets/images/cate-coin5.png";
+  import Resell from "@/plugins/contracts/Resell";
 
   export default {
     name: "MarketplaceDetail",
@@ -249,18 +250,25 @@
           this.$router.push("/login?back=" + encodeURIComponent(this.$route.path));
           return;
         }
-        if (!this.isApproved) {
-          this.approve();
-          return;
+        if (!this.isApproved || this.$route.query.type === "resell") {
+          await this.approve();
+        } else {
+          await this.buyItem();
         }
-        this.buyItem();
       },
       async buyItem() {
+        let mk;
+        // 取marketplace合约
+        if (this.info.market_level === "primary") mk = this.MarketPlace;
+        // 取OtcMarketPlace合约
+        else if (this.info.market_level === "otc") mk = Resell;
+        else return this.$notify.error("contract is null");
+
         this.isPurchasing = true;
         console.log("allowance: ", this.allowance);
         console.log("account: ", this.connectedAccount);
         console.log("Offer ID: ", this.info.offer_id);
-        this.MarketPlace.buyItem(this.connectedAccount, this.info.offer_id, (err, txHash) => {
+        mk.buyItem(this.connectedAccount, this.info.offer_id, (err, txHash) => {
           if (err) {
             console.log(err);
           }
@@ -283,8 +291,14 @@
       },
       async approve() {
         this.isApproving = true;
-        console.log(this.connectedAccount, config.contracts.MarketPlace);
-        this.ERC20.approveMax(this.connectedAccount, config.contracts.MarketPlace, async (err, txHash) => {
+        let contract;
+        // 取marketplace合约
+        if (this.info.market_level === "primary") contract = config.contracts.MarketPlace;
+        // 取OtcMarketPlace合约
+        else if (this.info.market_level === "otc") contract = config.contracts.OtcMarketPlace;
+        else return this.$notify.error("contract is null");
+        console.log(this.connectedAccount, contract);
+        this.ERC20.approveMax(this.connectedAccount, contract, async (err, txHash) => {
           if (err) {
             console.log(err);
           }
@@ -295,7 +309,7 @@
         })
           .then(async (receipt) => {
             console.log("receipt: ", receipt);
-            this.allowance = (await this.ERC20.allowance(this.connectedAccount, config.contracts.MarketPlace)).toNumber();
+            this.allowance = (await this.ERC20.allowance(this.connectedAccount, contract)).toNumber();
             this.buyItem();
           })
           .catch((err) => {
