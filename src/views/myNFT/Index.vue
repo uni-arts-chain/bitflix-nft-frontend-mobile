@@ -6,7 +6,7 @@
         <div class="display-name">{{ connectedAccount }}</div>
       </div>
 
-      <ActionMovieList :is-approving="isApproving" @resellOrCancelItem="resellOrCancelItem" :item-id="itemId" :list="cardList" class="list" @onMovieClick="goDetail" />
+      <ActionMovieList :is-approving="isApproving" @resellOrCancelItem="resellOrCancelItem" :item-id="itemId" :list="cardList" class="list" @onItemClick="goDetail" />
     </div>
     <div v-if="isShow" class="dialog">
       <div class="close" @click="isShow = false">
@@ -58,8 +58,8 @@
       this.requestCardData(1, 30);
     },
     methods: {
-      goDetail() {
-        this.$router.push("/nftdetail");
+      goDetail(item) {
+        this.$router.push("/marketplaceDetail/" + item.id);
       },
       requestCardData(page, per_page) {
         this.$http.userOwnArts({ page, per_page }).then((res) => {
